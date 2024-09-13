@@ -1,0 +1,102 @@
+[
+  {
+    "id": "4b73348f-a0e6-4850-b6f8-aa419fba5e88",
+    "name": "Python",
+    "description": "Lenguaje de programación de alto nivel y propósito general"
+  },
+  {
+    "id": "cd980b03-a92d-4ae5-8e0b-032cbf31120c",
+    "name": "Java",
+    "description": "Lenguaje de programación orientado a objetos ampliamente utilizado"
+  },
+  {
+    "id": "f163b839-1af5-42a8-a161-88842d61eef6",
+    "name": "JavaScript",
+    "description": "Lenguaje de programación para desarrollo web y aplicaciones"
+  },
+  {
+    "id": "16f6527c-d176-4839-95d2-b6ac3bc97c13",
+    "name": "C++",
+    "description": "Lenguaje de programación de propósito general con características de bajo nivel"
+  },
+  {
+    "id": "61e1d97d-e629-4444-9eed-ec30032ab551",
+    "name": "Inteligencia Artificial",
+    "description": "Tecnologías y aplicaciones de IA en la ingeniería de sistemas"
+  },
+  {
+    "id": "c0fc4057-7e6e-406b-b81e-19f61db03589",
+    "name": "Machine Learning",
+    "description": "Técnicas y algoritmos de aprendizaje automático"
+  },
+  {
+    "id": "27ee52bc-2d2e-4588-8232-6c1570f5ef45",
+    "name": "Ciberseguridad",
+    "description": "Seguridad informática y protección de datos"
+  },
+  {
+    "id": "7531fa07-3311-4b96-b652-31aea80e7ab0",
+    "name": "Cloud Computing",
+    "description": "Tecnologías y servicios de computación en la nube"
+  },
+  {
+    "id": "1a996af6-eccd-43de-b5ff-7f988db60f64",
+    "name": "IoT",
+    "description": "Internet de las Cosas y sus aplicaciones"
+  },
+  {
+    "id": "e8a48ec8-bfa0-48fb-8545-04b2973fb975",
+    "name": "Blockchain",
+    "description": "Tecnología de cadena de bloques y sus usos"
+  },
+  {
+    "id": "a4483956-0dd4-487e-97ff-5496192dc966",
+    "name": "Big Data",
+    "description": "Análisis y gestión de grandes volúmenes de datos"
+  },
+  {
+    "id": "0fb4451d-701b-4057-bc26-d2131d26a7e5",
+    "name": "DevOps",
+    "description": "Prácticas y herramientas de desarrollo y operaciones"
+  },
+  {
+    "id": "578cdfd7-43ac-485d-9b00-2d2da2e836d0",
+    "name": "Realidad Virtual",
+    "description": "Tecnologías y aplicaciones de RV en ingeniería"
+  },
+  {
+    "id": "63323c82-e6c8-4e6c-9d55-8d1a13df7a64",
+    "name": "Realidad Aumentada",
+    "description": "Tecnologías y aplicaciones de RA en ingeniería"
+  },
+  {
+    "id": "414ff9a7-ab64-4308-992e-52b2757307ec",
+    "name": "Hackathon",
+    "description": "Eventos de programación colaborativa e innovación"
+  },
+  {
+    "id": "d2ff408f-5ea9-4d1e-ac1b-9cb6882761ed",
+    "name": "Startups Tecnológicas",
+    "description": "Emprendimientos y nuevas empresas en el sector tecnológico"
+  },
+  {
+    "id": "ac1be99d-19fd-4aab-b201-ab41e35021ed",
+    "name": "5G",
+    "description": "Tecnología de redes móviles de quinta generación"
+  },
+  {
+    "id": "7da9d631-c953-49c6-b6cd-2003b384ad7a",
+    "name": "Robótica",
+    "description": "Diseño, construcción y aplicación de robots"
+  },
+  {
+    "id": "7f720356-31d8-40fe-9e24-e140f0180527",
+    "name": "UX/UI",
+    "description": "Diseño de experiencia de usuario e interfaz de usuario"
+  },
+  {
+    "id": "97cf97eb-f591-4533-96c6-87aa78da27dc",
+    "name": "Código Abierto",
+    "description": "Software y proyectos de código abierto en ingeniería"
+  }
+]
