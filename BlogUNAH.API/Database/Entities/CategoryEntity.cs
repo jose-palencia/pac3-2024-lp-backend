@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogUNAH.API.Database.Entities
@@ -19,5 +20,8 @@ namespace BlogUNAH.API.Database.Entities
         public string Description { get; set; }
 
         public virtual IEnumerable<PostEntity> Posts { get; set; }
+
+        public virtual IdentityUser CreatedByUser { get; set; }
+        public virtual IdentityUser UpdatedByUser { get; set; }
     }
 }

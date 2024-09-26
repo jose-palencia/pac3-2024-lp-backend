@@ -1,11 +1,12 @@
 ﻿using BlogUNAH.API.Database.Entities;
 using BlogUNAH.API.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 namespace BlogUNAH.API.Database
 {
-    public class BlogUNAHContext : DbContext 
+    public class BlogUNAHContext : IdentityDbContext<IdentityUser> 
     {
         private readonly IAuthService _authService;
 
@@ -19,10 +20,22 @@ namespace BlogUNAH.API.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
             modelBuilder.Entity<TagEntity>()
             .Property(e => e.Name)
             .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.HasDefaultSchema("security");
+
+            modelBuilder.Entity<IdentityUser>().ToTable("users");
+            modelBuilder.Entity<IdentityRole>().ToTable("roles");
+            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("users_roles");
+            modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("users_claims");
+            modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("users_logins");
+            modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("roles_claims");
+            modelBuilder.Entity<IdentityUserToken<string>>().ToTable("users_tokens");
+
 
         }
 

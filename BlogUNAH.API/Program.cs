@@ -1,5 +1,6 @@
 using BlogUNAH.API;
 using BlogUNAH.API.Database;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<BlogUNAHContext>();
-        await BlogUNAHSeeder.LoadDataAsync(context, loggerFactory);
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await BlogUNAHSeeder.LoadDataAsync(context, loggerFactory, userManager, roleManager);
     }
     catch (Exception e) 
     {
