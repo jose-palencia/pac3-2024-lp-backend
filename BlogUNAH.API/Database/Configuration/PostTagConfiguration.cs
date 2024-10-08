@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BlogUNAH.API.Database.Configuration
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<CategoryEntity>
+    public class PostTagConfiguration : IEntityTypeConfiguration<PostTagEntity>
     {
-        public void Configure(EntityTypeBuilder<CategoryEntity> builder)
+        public void Configure(EntityTypeBuilder<PostTagEntity> builder)
         {
             builder.HasOne(e => e.CreatedByUser)
                 .WithMany()
@@ -19,7 +19,6 @@ namespace BlogUNAH.API.Database.Configuration
                 .HasForeignKey(e => e.UpdatedBy)
                 .HasPrincipalKey(e => e.Id)
                 .IsRequired();
-
         }
     }
 }

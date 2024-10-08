@@ -4,6 +4,7 @@ using BlogUNAH.API.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogUNAH.API.Migrations
 {
     [DbContext(typeof(BlogUNAHContext))]
-    partial class BlogUNAHContextModelSnapshot : ModelSnapshot
+    [Migration("20241008012305_AddRelationWithUsersAndCategories")]
+    partial class AddRelationWithUsersAndCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +95,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("content");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("created_by");
@@ -118,7 +120,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("title");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("updated_by");
@@ -131,10 +132,6 @@ namespace BlogUNAH.API.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("UpdatedBy");
-
                     b.ToTable("posts", "dbo");
                 });
 
@@ -146,7 +143,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("created_by");
@@ -164,7 +160,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("tag_id");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("updated_by");
@@ -175,13 +170,9 @@ namespace BlogUNAH.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
                     b.HasIndex("PostId");
 
                     b.HasIndex("TagId");
-
-                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("posts_tags", "dbo");
                 });
@@ -194,7 +185,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("created_by");
@@ -216,7 +206,6 @@ namespace BlogUNAH.API.Migrations
                         .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("updated_by");
@@ -226,10 +215,6 @@ namespace BlogUNAH.API.Migrations
                         .HasColumnName("updated_date");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("tags", "dbo");
                 });
@@ -459,33 +444,11 @@ namespace BlogUNAH.API.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("BlogUNAH.API.Database.Entities.PostTagEntity", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BlogUNAH.API.Database.Entities.PostEntity", "Post")
                         .WithMany("Tags")
                         .HasForeignKey("PostId")
@@ -498,38 +461,9 @@ namespace BlogUNAH.API.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-
-                    b.Navigation("UpdatedByUser");
-                });
-
-            modelBuilder.Entity("BlogUNAH.API.Database.Entities.TagEntity", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UpdatedByUser")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

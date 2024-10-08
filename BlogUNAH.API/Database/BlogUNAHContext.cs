@@ -1,4 +1,5 @@
-﻿using BlogUNAH.API.Database.Entities;
+﻿using BlogUNAH.API.Database.Configuration;
+using BlogUNAH.API.Database.Entities;
 using BlogUNAH.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -36,6 +37,21 @@ namespace BlogUNAH.API.Database
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("roles_claims");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("users_tokens");
 
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new PostConfiguration());
+            modelBuilder.ApplyConfiguration(new PostTagConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
+
+            // Set FKs OnRestrict
+            var eTypes = modelBuilder.Model.GetEntityTypes();
+            foreach (var type in eTypes) 
+            {
+                var foreignKeys = type.GetForeignKeys();
+                foreach (var foreignKey in foreignKeys) 
+                {
+                    foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+                }
+            }
 
         }
 

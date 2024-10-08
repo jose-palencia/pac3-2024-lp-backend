@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogUNAH.API.Database.Entities
 {
@@ -16,6 +17,8 @@ namespace BlogUNAH.API.Database.Entities
         
         [ForeignKey(nameof(TagId))]
         public virtual TagEntity Tag { get; set; }
+        public virtual IdentityUser CreatedByUser { get; set; }
+        public virtual IdentityUser UpdatedByUser { get; set; }
 
     }
 }
