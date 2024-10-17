@@ -25,6 +25,7 @@ namespace BlogUNAH.API
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddHttpContextAccessor(); // Validar
 
             var name = Configuration.GetConnectionString("DefaultConnection");
 
@@ -36,6 +37,7 @@ namespace BlogUNAH.API
             services.AddTransient<ICategoriesService, CategoriesSQLService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IAuditService, AuditService>();
 
             // Add Identity
             services.AddIdentity<IdentityUser, IdentityRole>(options => 

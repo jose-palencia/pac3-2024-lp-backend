@@ -9,14 +9,14 @@ namespace BlogUNAH.API.Database
 {
     public class BlogUNAHContext : IdentityDbContext<IdentityUser> 
     {
-        private readonly IAuthService _authService;
+        private readonly IAuditService _auditService;
 
         public BlogUNAHContext(
             DbContextOptions options, 
-            IAuthService authService
+            IAuditService auditService
             ) : base(options)
         {
-            this._authService = authService;
+            this._auditService = auditService;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -72,12 +72,12 @@ namespace BlogUNAH.API.Database
                 {
                     if (entry.State == EntityState.Added)
                     {
-                        entity.CreatedBy = _authService.GetUserId();
+                        entity.CreatedBy = _auditService.GetUserId();
                         entity.CreatedDate = DateTime.Now;
                     }
                     else 
                     {
-                        entity.UpdatedBy = _authService.GetUserId();
+                        entity.UpdatedBy = _auditService.GetUserId();
                         entity.UpdatedDate = DateTime.Now;
                     }
                 }

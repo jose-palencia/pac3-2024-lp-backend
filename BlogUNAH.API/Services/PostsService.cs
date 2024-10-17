@@ -12,19 +12,19 @@ namespace BlogUNAH.API.Services
     public class PostsService : IPostsService
     {
         private readonly BlogUNAHContext _context;
-        private readonly IAuthService _authService;
+        private readonly IAuditService _auditService;
         private readonly ILogger<PostsService> _logger;
         private readonly IMapper _mapper;
         private readonly int PAGE_SIZE;
 
         public PostsService(BlogUNAHContext context,
-            IAuthService authService,
+            IAuditService auditService,
             ILogger<PostsService> logger,
             IMapper mapper,
             IConfiguration configuration)
         {
             this._context = context;
-            this._authService = authService;
+            this._auditService = auditService;
             this._logger = logger;
             this._mapper = mapper;
             PAGE_SIZE = configuration.GetValue<int>("PageSize");
@@ -114,7 +114,7 @@ namespace BlogUNAH.API.Services
                 try
                 {
                     var postEntity = _mapper.Map<PostEntity>(dto);
-                    postEntity.AuthorId = _authService.GetUserId();
+                    postEntity.AuthorId = _auditService.GetUserId();
 
                     _context.Posts.Add(postEntity);
                     await _context.SaveChangesAsync();
@@ -192,7 +192,7 @@ namespace BlogUNAH.API.Services
                     }
 
                     _mapper.Map(dto, postEntity);
-                    postEntity.AuthorId = _authService.GetUserId(); //TODO: Remover cuanto este el frontend con nueva logica
+                    //postEntity.AuthorId = _authService.GetUserId(); //TODO: Remover cuanto este el frontend con nueva logica
 
                     _context.Posts.Update(postEntity);
                     await _context.SaveChangesAsync();

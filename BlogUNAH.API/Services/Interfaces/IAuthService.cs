@@ -1,7 +1,10 @@
-﻿namespace BlogUNAH.API.Services.Interfaces
+﻿using BlogUNAH.API.Dtos.Auth;
+using BlogUNAH.API.Dtos.Common;
+
+namespace BlogUNAH.API.Services.Interfaces
 {
     public interface IAuthService
     {
-        string GetUserId();
+        Task<ResponseDto<LoginResponseDto>> LoginAsync(LoginDto dto);
     }
 }
