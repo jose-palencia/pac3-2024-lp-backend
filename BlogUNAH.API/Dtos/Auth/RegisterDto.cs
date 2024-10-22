@@ -14,6 +14,10 @@ namespace BlogUNAH.API.Dtos.Auth
         // 1 mayuscula, 1 minuscula, 1 caracter especial, 1 numero, sea mayor a 8 caracteres
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "La contraseña debe ser segura y contener al menos 8 caracteres, incluyendo minúsculas, mayúsculas, números y caracteres especiales.")]
         public string Password { get; set; }
+
+        [Display(Name = "Confirmar contraseña")]
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Compare(nameof(Password), ErrorMessage = "Las contraseñas no coinciden.")]
         public string ConfirmPassword { get; set; }
     }
 }

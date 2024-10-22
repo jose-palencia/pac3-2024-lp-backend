@@ -1,4 +1,5 @@
-﻿using BlogUNAH.API.Dtos.Auth;
+﻿using BlogUNAH.API.Constants;
+using BlogUNAH.API.Dtos.Auth;
 using BlogUNAH.API.Dtos.Common;
 using BlogUNAH.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -82,7 +83,50 @@ namespace BlogUNAH.API.Services
 
         public async Task<ResponseDto<LoginResponseDto>> RegisterAsync(RegisterDto dto) 
         {
-            return null;
+            var user = new IdentityUser 
+            {
+                UserName = dto.Email,
+                Email = dto.Email,
+            };
+
+            var result = await _userManager.CreateAsync(user, dto.Password);
+
+            if (result.Succeeded) 
+            {
+                var userEntity = await _userManager.FindByEmailAsync(dto.Email);
+
+                await _userManager.AddToRoleAsync(userEntity, RolesConstant.USER);
+
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, userEntity.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("UserId", userEntity.Id),
+                    new Claim(ClaimTypes.Role, RolesConstant.USER)
+                };
+
+                var jwtToken = GetToken(authClaims);
+
+                return new ResponseDto<LoginResponseDto> 
+                {
+                    StatusCode = 200,
+                    Status = true,
+                    Message = "Registro de usuario realizado satisfactoriamente.",
+                    Data = new LoginResponseDto 
+                    {
+                        Email = userEntity.Email,
+                        Token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
+                        TokenExpiration = jwtToken.ValidTo,
+                    }
+                };
+            }
+
+            return new ResponseDto<LoginResponseDto> 
+            {
+                StatusCode = 400,
+                Status = false,
+                Message = "Error al registrar el usuario"
+            };
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
