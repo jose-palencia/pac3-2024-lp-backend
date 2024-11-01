@@ -1,4 +1,5 @@
 ﻿using BlogUNAH.API.Constants;
+using BlogUNAH.API.Database.Entities;
 using BlogUNAH.API.Dtos.Auth;
 using BlogUNAH.API.Dtos.Common;
 using BlogUNAH.API.Services.Interfaces;
@@ -12,13 +13,13 @@ namespace BlogUNAH.API.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<UserEntity> _signInManager;
+        private readonly UserManager<UserEntity> _userManager;
         private readonly IConfiguration _configuration;
 
         public AuthService(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager, 
+            SignInManager<UserEntity> signInManager,
+            UserManager<UserEntity> userManager, 
             IConfiguration configuration
             )
         {
@@ -63,6 +64,7 @@ namespace BlogUNAH.API.Services
                     Message = "Inicio de sesion satisfactorio",
                     Data = new LoginResponseDto 
                     {
+                        FullName = $"{userEntity.FirstName} {userEntity.LastName}",
                         Email = userEntity.Email,
                         Token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
                         TokenExpiration = jwtToken.ValidTo,
@@ -83,8 +85,10 @@ namespace BlogUNAH.API.Services
 
         public async Task<ResponseDto<LoginResponseDto>> RegisterAsync(RegisterDto dto) 
         {
-            var user = new IdentityUser 
+            var user = new UserEntity 
             {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 UserName = dto.Email,
                 Email = dto.Email,
             };
@@ -114,6 +118,7 @@ namespace BlogUNAH.API.Services
                     Message = "Registro de usuario realizado satisfactoriamente.",
                     Data = new LoginResponseDto 
                     {
+                        FullName = $"{userEntity.FirstName} {userEntity.LastName}",
                         Email = userEntity.Email,
                         Token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
                         TokenExpiration = jwtToken.ValidTo,
@@ -137,7 +142,7 @@ namespace BlogUNAH.API.Services
             return new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(int.Parse(_configuration["JWT:Expires"] ?? "15")),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigninKey, 
                     SecurityAlgorithms.HmacSha256)

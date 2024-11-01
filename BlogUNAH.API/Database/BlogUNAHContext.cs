@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogUNAH.API.Database
 {
-    public class BlogUNAHContext : IdentityDbContext<IdentityUser> 
+    public class BlogUNAHContext : IdentityDbContext<UserEntity> 
     {
         private readonly IAuditService _auditService;
 
@@ -29,7 +29,7 @@ namespace BlogUNAH.API.Database
 
             modelBuilder.HasDefaultSchema("security");
 
-            modelBuilder.Entity<IdentityUser>().ToTable("users");
+            modelBuilder.Entity<UserEntity>().ToTable("users");
             modelBuilder.Entity<IdentityRole>().ToTable("roles");
             modelBuilder.Entity<IdentityUserRole<string>>().ToTable("users_roles");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("users_claims");

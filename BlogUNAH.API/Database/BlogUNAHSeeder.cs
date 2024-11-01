@@ -11,7 +11,7 @@ namespace BlogUNAH.API.Database
         public static async Task LoadDataAsync(
             BlogUNAHContext context,
             ILoggerFactory loggerFactory,
-            UserManager<IdentityUser> userManager,
+            UserManager<UserEntity> userManager,
             RoleManager<IdentityRole> roleManager
             ) 
         {
@@ -32,7 +32,7 @@ namespace BlogUNAH.API.Database
 
         // TODO: Seed de usuarios
         public static async Task LoadRolesAndUsersAsync(
-            UserManager<IdentityUser> userManager,
+            UserManager<UserEntity> userManager,
             RoleManager<IdentityRole> roleManager,
             ILoggerFactory loggerFactory
             ) 
@@ -48,20 +48,26 @@ namespace BlogUNAH.API.Database
 
                 if (!await userManager.Users.AnyAsync()) 
                 {
-                    var userAdmin = new IdentityUser 
+                    var userAdmin = new UserEntity 
                     {
+                        FirstName = "Administrador",
+                        LastName = "Blog",
                         Email = "admin@blogunah.edu",
                         UserName = "admin@blogunah.edu",                        
                     };
 
-                    var userAuthor = new IdentityUser
+                    var userAuthor = new UserEntity
                     {
+                        FirstName = "Autor",
+                        LastName = "Blog",
                         Email = "author@blogunah.edu",
                         UserName = "author@blogunah.edu",
                     };
 
-                    var normalUser = new IdentityUser
+                    var normalUser = new UserEntity
                     {
+                        FirstName = "User",
+                        LastName = "Blog",
                         Email = "user@blogunah.edu",
                         UserName = "user@blogunah.edu",
                     };

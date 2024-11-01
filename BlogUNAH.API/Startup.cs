@@ -1,4 +1,5 @@
 ﻿using BlogUNAH.API.Database;
+using BlogUNAH.API.Database.Entities;
 using BlogUNAH.API.Helpers;
 using BlogUNAH.API.Services;
 using BlogUNAH.API.Services.Interfaces;
@@ -40,7 +41,7 @@ namespace BlogUNAH.API
             services.AddTransient<IAuditService, AuditService>();
 
             // Add Identity
-            services.AddIdentity<IdentityUser, IdentityRole>(options => 
+            services.AddIdentity<UserEntity, IdentityRole>(options => 
             {
                 options.SignIn.RequireConfirmedAccount = false;
             }).AddEntityFrameworkStores<BlogUNAHContext>()

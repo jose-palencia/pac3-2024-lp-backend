@@ -35,7 +35,7 @@ namespace BlogUNAH.API.Database.Entities
         public string Overview { get; set; }
 
         public virtual IEnumerable<PostTagEntity> Tags { get; set; }
-        public virtual IdentityUser CreatedByUser { get; set; }
-        public virtual IdentityUser UpdatedByUser { get; set; }
+        public virtual UserEntity CreatedByUser { get; set; }
+        public virtual UserEntity UpdatedByUser { get; set; }
     }
 }
