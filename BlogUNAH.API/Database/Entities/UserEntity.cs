@@ -22,5 +22,6 @@ namespace BlogUNAH.API.Database.Entities
 
         [Column("resfesh_token_expire")]
         public DateTime RefreshTokenExpire { get; set; }
+
     }
 }
