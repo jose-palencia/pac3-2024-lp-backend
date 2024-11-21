@@ -1,6 +1,8 @@
-﻿using BlogUNAH.API.Dtos.Common;
+﻿using BlogUNAH.API.Constants;
+using BlogUNAH.API.Dtos.Common;
 using BlogUNAH.API.Dtos.Posts;
 using BlogUNAH.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +20,7 @@ namespace BlogUNAH.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{RolesConstant.ADMIN}")]
         public async Task<ActionResult<ResponseDto<PaginationDto<List<PostDto>>>>> PaginationList(
             string searchTerm, int page = 1) 
         {
