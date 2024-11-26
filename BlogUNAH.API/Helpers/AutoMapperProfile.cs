@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlogUNAH.API.Database.Entities;
 using BlogUNAH.API.Dtos.Categories;
+using BlogUNAH.API.Dtos.Dashboard;
 using BlogUNAH.API.Dtos.Posts;
 
 namespace BlogUNAH.API.Helpers
@@ -11,6 +12,14 @@ namespace BlogUNAH.API.Helpers
         {
             MapsForCategories();
             MapsForPosts();
+            MapsForDashboard();
+        }
+
+        private void MapsForDashboard() 
+        {
+            CreateMap<CategoryEntity, DashboardCategoryDto>();
+            CreateMap<PostEntity, DashboardPostDto>();
+            CreateMap<TagEntity, DashboardTagDto>();
         }
 
         private void MapsForCategories()

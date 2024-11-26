@@ -39,6 +39,7 @@ namespace BlogUNAH.API
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IPostsService, PostsService>();
             services.AddTransient<IAuditService, AuditService>();
+            services.AddTransient<IDashboardService, DashboardService>();
 
             // Add Identity
             services.AddIdentity<UserEntity, IdentityRole>(options => 
